@@ -12,7 +12,11 @@ final class NetworkManagerTests: XCTestCase {
     var sut: NetworkManager!
 
     override func setUpWithError() throws {
-        sut = NetworkManager()
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocolObject.self]
+        let session = URLSession(configuration: configuration)
+        
+        sut = NetworkManager(session: session)
     }
 
     override func tearDownWithError() throws {
@@ -20,24 +24,12 @@ final class NetworkManagerTests: XCTestCase {
     }
     
     func test_() {
-//        //given
-//        let session = MockURLSession(makeRequestFail: true)
-//        sut = NetworkManager(session: session)
-//
-//        //when
-//        let expectation = XCTestExpectation()
-//        let testURL = URLMaker().makeBoxOfficeURL(date: Date.currentDate)
-//
-//        sut.startLoad(url: testURL!) { result in
-//            //then
-//            switch result {
-//            case .success:
-//                XCTFail()
-//            case .failure(let error):
-//                XCTAssertEqual(error.localizedDescription, NetworkError.responseCodeError.localizedDescription)
-//            }
-//            expectation.fulfill()
-//        }
-//        wait(for: [expectation], timeout: 2.0)
+        MockURLProtocolObject.requestHandler = { request in
+            let data = StubBoxOffice().data
+            let response = HTTPURLResponse(url: request.url!, statusCode: 404, httpVersion: "2.0", headerFields: nil)
+            
+            
+            return (response!, data)
+        }
     }
 }

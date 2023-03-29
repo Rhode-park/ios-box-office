@@ -48,6 +48,7 @@
 		63DF20F32970E1A0005DF7D1 /* BoxOfficeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DF20F22970E1A0005DF7D1 /* BoxOfficeListViewController.swift */; };
 		63DF20F82970E1A1005DF7D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63DF20F72970E1A1005DF7D1 /* Assets.xcassets */; };
 		63DF20FB2970E1A1005DF7D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DF20F92970E1A1005DF7D1 /* LaunchScreen.storyboard */; };
+		D04AD63B29D43B7000E79254 /* StubBoxOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04AD63A29D43B7000E79254 /* StubBoxOffice.swift */; };
 		D06CB3AD29C84FB000136FD3 /* BoxOffice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CB3AC29C84FB000136FD3 /* BoxOffice.swift */; };
 		D06CB3B929C8770C00136FD3 /* BoxOfficeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06CB3B829C8770C00136FD3 /* BoxOfficeTests.swift */; };
 		D08946D429CA922400669A1C /* DecodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08946D329CA922400669A1C /* DecodeError.swift */; };
@@ -108,6 +109,7 @@
 		63DF20F72970E1A1005DF7D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63DF20FA2970E1A1005DF7D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63DF20FC2970E1A1005DF7D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D04AD63A29D43B7000E79254 /* StubBoxOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubBoxOffice.swift; sourceTree = "<group>"; };
 		D06CB3AC29C84FB000136FD3 /* BoxOffice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOffice.swift; sourceTree = "<group>"; };
 		D06CB3B629C8770C00136FD3 /* BoxOfficeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxOfficeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06CB3B829C8770C00136FD3 /* BoxOfficeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeTests.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				08C61F9E29CC1CA20006A1FE /* NetworkManagerTests.swift */,
 				08EDCF0B29D436A400BF5B9F /* MockURLProtocolObject.swift */,
+				D04AD63A29D43B7000E79254 /* StubBoxOffice.swift */,
 			);
 			path = NetworkManagerTests;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				08EDCF0C29D436A400BF5B9F /* MockURLProtocolObject.swift in Sources */,
 				D08946E229CC34AE00669A1C /* Date+.swift in Sources */,
 				D08946E129CC349F00669A1C /* NetworkError.swift in Sources */,
+				D04AD63B29D43B7000E79254 /* StubBoxOffice.swift in Sources */,
 				D08946DE29CC348B00669A1C /* URLMaker.swift in Sources */,
 				D08946DD29CC348600669A1C /* NetworkManager.swift in Sources */,
 				08C61F9F29CC1CA20006A1FE /* NetworkManagerTests.swift in Sources */,

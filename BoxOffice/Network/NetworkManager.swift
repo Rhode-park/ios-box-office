@@ -8,7 +8,11 @@
 import Foundation
 
 final class NetworkManager {
-    let session = URLSession.shared
+    let session: URLSession
+    
+    init(session: URLSession = URLSession.shared) {
+        self.session = session
+    }
     
     func startLoad(url: URL, complete: @escaping (Result<Data, NetworkError>) -> Void) {
         var request = URLRequest(url: url)
