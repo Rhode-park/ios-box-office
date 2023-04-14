@@ -31,13 +31,15 @@
 
 ### Class Diagram 🗺
 
-<Img src = "https://i.imgur.com/NNNsFuc.png" width="700">
-
+<Img src = "https://i.imgur.com/a2g7X5p.png" width="700">
 
 
 </br>
 
 ### File Tree 🌲
+
+<details>
+<summary> 파일 트리 보기</summary>
 
 ```typescript
 BoxOffice
@@ -94,6 +96,10 @@ BoxOffice
 └── BoxOfficeTests
     └── BoxOfficeTests
 ```
+    
+</details>
+
+
 
 
 </br>
@@ -117,6 +123,11 @@ BoxOffice
 | **2023.04.05** | - 휴식 |
 | **2023.04.06** | - 프로토콜및 하드코딩을 이용한 방식을 고차함수를 사용한 방식으로 리팩토링 |
 | **2023.04.07** | - LoadingIndicator 경제적인 방법으로 리팩토링  |
+| **2023.04.10** | - 화면 모드 변경되는 기능 구현 <br/> - userDefaults를 이용하여 cellMode를 관리하는 리팩토링 |
+| **2023.04.11** | - CellMode 파일로 분리하는 리팩토링 |
+| **2023.04.12** | - 휴식 |
+| **2023.04.13** | - 에러처리하는 리팩토링 <br/> - NSCache를 URLCache로 변경하는 리팩토링 |
+| **2023.04.14** | - readme 작성 및 마무리 |
 
 
 
@@ -125,19 +136,25 @@ BoxOffice
 ## 실행 화면 🎬
 
 
-| <center> 처음 실행시 데이터 로딩</center> | <center>내부 데이터 새로고침</center>  | <center>항목들 List로 화면에 표시</center> |
-| --- | --- | --- |
-| <img src="https://i.imgur.com/LASoeY8.gif" width =400> | <img src="https://i.imgur.com/j2ZXMe0.gif" width =400> | <img src="https://i.imgur.com/MdMpHpH.gif" width =400> |
+| <center> 처음 실행시 데이터 로딩</center> | <center>내부 데이터 새로고침</center>  | <center>항목들 List로 화면에 표시</center> | <center> 날짜 선택뷰로 이동</center> |
+| --- | --- | --- |--- |
+| <img src="https://i.imgur.com/LASoeY8.gif" width =400> | <img src="https://i.imgur.com/j2ZXMe0.gif" width =400> | <img src="https://i.imgur.com/MdMpHpH.gif" width =400> | <img src="https://i.imgur.com/XYhmxpx.gif" width =400> |
 
 
-| <center> 날짜 선택뷰로 이동</center> | <center>특정 날짜 선택시 업데이트</center>  | <center>새로고침시 최근날짜로 업데이트</center> |
-| --- | --- | --- |
-| <img src="https://i.imgur.com/XYhmxpx.gif" width =400> | <img src="https://i.imgur.com/B8OcCZV.gif" width =400> | <img src="https://i.imgur.com/5K65eev.gif" width =400> |
+| <center>특정 날짜 선택시 업데이트</center>  | <center>새로고침시 최근날짜로 업데이트</center> | <center> 화면 모드 변경</center> | <center> 재실행시 저장된 화면모드로 표시</center>  | 
+| --- | --- | --- | --- |
+ | <img src="https://i.imgur.com/B8OcCZV.gif" width =400> | <img src="https://i.imgur.com/5K65eev.gif" width =400> |<img src="https://i.imgur.com/IZ0Q66N.gif" width =400> | <img src="https://i.imgur.com/bHclbxS.gif" width =400> |
+
+
 
 
 </br>
 
+
 ## 트러블 슈팅 🚀
+
+<details>
+<summary> Network 1️⃣-3️⃣ </summary>
 
 ### 1️⃣ iOS App HTTP 접근 허용하기
 
@@ -238,6 +255,13 @@ private func verifyResult<T, E: Error>(result: Result<T, E>) throws -> T? {
         }
     }
 ```
+</details>
+
+</br>
+
+
+<details>
+<summary> UI 4️⃣-6️⃣ </summary>
 
 ### 4️⃣ 데이터 다운로드 완료 시점에 컬렉션 뷰 업데이트 하기
 
@@ -370,6 +394,93 @@ protocol CalendarViewControllerDelegate: AnyObject {
 }
 ```
 
+</details>
+
+</br>
+
+<details>
+<summary> Cache 7️⃣-9️⃣ </summary>
+    
+### 7️⃣ Cache vs Core Data
+
+`Cache` 와 `CoreData` 모두 데이터를 저장하고 관리하는데 사용되는 방법 중 하나입니다.
+
+현재 저희 프로젝트에서 관리하고 있는 데이터는 네트워크 요청을 통해 받아오고 있습니다. 이 데이터를 영구적으로 보관할지 임시로 보관할지에 대해 고민을 해봤는데, 
+
+영구적으로 보관할 시 해당 데이터를 언제까지 보관해야한다는 기준도 명확하지 않고, 데이터가 계속해서 누적되는 경우 차지하는 용량또한 한없이 커질것이라 생각을 합니다.
+
+그렇기 때문에 빠른 접근이 가능하지만 일정시간이 지나면 데이터가 휘발되는 Cache를 사용하기로 했습니다.
+
+
+
+### 8️⃣ NSCache vs URLCache
+
+캐시란 데이터나 값을 미리 복사해놓는 임시 장소를 말합니다. 캐시의 접근시간에 비해 원래 데이터에 접근하는 시간이 오래걸리는 경우 혹은 이 시간을 세이브하기 위해서 사용합니다. 캐시에 데이터를 미리 복사해놓으면 접근시간 없이 더 빠른 속도로 데이터에 접근할 수 있기 때문입니다.
+
+캐시 방법에는 두 가지 방법이 있습니다. Memory Caching 과 Disk Caching이 그것입니다:
+
+| Memory Caching | Disk Caching | 
+| -------- | -------- | 
+| ▪️ 어플리케이션의 메모리 영역 일부분을 Caching에 사용하는 것 <br/> ▪️ 단점: 어플리케이션이 종료되어 메모리에서 해제되면 이 영역에 있던 리소스들은 OS에 반환되면서 Memory Caching되어있던 리소스들이 사라짐 | ▪️ 데이터를 파일 형태로 디스크에 저장하는 것 <br/> ▪️ 단점: Disk Caching이 반복적으로 발생하면 어플리케이션이 차지하는 용량이 커짐 <br/> ▪️ 장점: 어플리케이션을 껐다 켜도 데이터가 사라지지 않음 | 
+
+⬜️ NSCache
+▪️ in-Memory Caching 방식
+▪️ 응용프로그램에 중요치 않고 메모리가 부족하다고 판단되면 자동으로 삭제 됨
+▪️ 앱을 끄면 자동으로 삭제 됨
+
+⬜️ URLCache
+▪️ 복합 캐싱 방식(in-Memory Caching + on-Disk Caching)
+▪️ 시스템의 디스크 공간이 부족해질 때까지 캐시된 데이터를 유지함
+
+  이처럼 NSCache와 URLCache의 두드러지는 차이점은 캐싱 방식에서 나타납니다. URLCache는 NSCache와 달리 복합 캐싱 방식을 지원하기 때문에 Disk Caching이 가능하며, in-Memory Caching이 가지는 한계를 보완할 수 있습니다. 드라이브는 RAM보다 느리지만 상대적으로 많이 저장될 수 있기때문에, 이미지가 있는 데이터를 저장하기에는 URLCache를 선택하는 것이 적절하다고 생각했습니다. 또한, NSCache는 앱을 끄면 자동으로 삭제가 됩니다. 박스오피스가 받아올 데이터들은 그날의 데이터가 나오면 내용이 변하지 않습니다. 그러므로 앱을 껐다 켤때마다 데이터를 받아올 필요가 없다고 생각했습니다. 그래서 앱을 끌 때 캐시가 삭제 되는 NSCache보다는 URLCache로 데이터를 저장하는 것이 적절하다고 판단했습니다.
+
+
+### 9️⃣ Cache Policy
+
+캐시 정책은 URLRequest의 cachePolicy 속성을 통해 설정할 수 있습니다. URLRequst의 cachePolicy 속성은 다음과 같은 값을 가질 수 있습니다.
+
+| <center>캐시 정책</center> | <center>로컬 캐시</center>| <center>원본 소스</center> |
+| -------- | -------- | -------- |
+| reloadIgnoringLocalCacheData | 무시 됨 | 항상 네트워크에 접근 |
+| returnCacheDataDontLoad | 무조건 사용 | 항상 네트워크에 접근하지 않음 |
+| returnCacheDataElseLoad | 우선 시도 | 필요하다면 접근 |
+| useProtocolCachePolicy | 프로토콜에 따라 다름 | 프로토콜에 따라 다름 |
+
+    
+    
+저희의 경우 캐시된 데이터가 있을경우 해당 데이터를 반환하고 데이터가 없다면 그 때 네트워크에 요청을 하는 방식을 띄고 있습니다.
+    
+    
+그래서 저희는 캐시정책을 returnCacheDataElseLoad 을 채택하였고 Cache를 5분 동안만 가질 수 있게 해두었습니다.
+
+    
+```swift
+    let request = URLRequest(url: url,
+                            cachePolicy: .returnCacheDataElseLoad,
+                            timeoutInterval: 300)    
+    
+```
+
+또한 URLSession 의 공유 인스턴스를 만들어 memoryCapacity와 diskCapacity의 크기를 제한 해두어 용량이 무한정으로 커지지 않게 제한을 해두었습니다,
+
+```swift
+extension URLSession {
+    static var customCacheShared: URLSession = {
+        let memoryCapacity = 10 * 1024 * 1024
+        let diskCapacity = 50 * 1024 * 1024
+        let cache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity)
+        
+        let config = URLSessionConfiguration.default
+        config.urlCache = cache
+        
+        let session = URLSession(configuration: config)
+        
+        return session
+    }()
+}
+```
+    
+</details>
 
 
 ## Reference 📑
@@ -377,3 +488,21 @@ protocol CalendarViewControllerDelegate: AnyObject {
 - [URLSession - Apple Document](https://developer.apple.com/documentation/foundation/urlsession#declaration)
 - [UICalendarView - Apple Document](https://developer.apple.com/documentation/uikit/uicalendarview)
 - [UIActivityIndicatorView - Apple Document](https://developer.apple.com/documentation/uikit/uiactivityindicatorview)
+- [NSCache - Apple Document](https://developer.apple.com/documentation/foundation/nscache)
+- [URLCache - Apple Document](https://developer.apple.com/documentation/foundation/urlcache)
+- [UserDefaults - Apple Document](https://developer.apple.com/documentation/foundation/userdefaults)
+- [NSURLREquest.CachePolicy - Apple Document](https://developer.apple.com/documentation/foundation/nsurlrequest/cachepolicy)
+
+## 팀 회고 🫂
+
+- To Rhode
+
+로데랑 같이 프로젝트 진행하면서 드디어 비빔밥즈 엑조디아를 완성했네요⭐️
+4주라는 긴시간 동안 로데랑 같이 프로젝트 진행하면서 너무 즐거웠어요😁
+이번 프로젝트는 유독 많이 힘들었던 것 같았는데 로데랑 같이 진행해서 그래도 버틸 수 있었던 거 같네요!
+2달밖에 남지 않는 캠프기간 남은시간들도 잘 부탁드립니다 🫡
+
+
+- To Rilla
+
+릴라는 직관이 좋은 캠퍼입니다. 릴라는 빠른 시간 안에 개념을 잡고 정확하게 그 기술을 사용할 수 있는 능력을 가졌습니다. 릴라와 함께 하는 동안 릴라의 직관 덕분에 프로젝트가 일사천리로 진행된 것 같습니다! 그리고 아는 지식을 친절하게 설명할 수 있는 능력도 가지고 있습니다. 이런 릴라의 가장 큰 장점은 빠른 이해력입니다.
